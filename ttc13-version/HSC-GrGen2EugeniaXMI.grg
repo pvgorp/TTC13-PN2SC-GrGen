@@ -22,12 +22,12 @@
 /**
 * Transform a set of Hierarchical Statecharts in a GrGen Model (graph) to XMI2 text based on PVG SC MM
 */
-rule hscModel2eugeniaXMItext {
+rule hscModel2eugeniaXMItext() {
 		orRoot:HSCorState;
 	negative {
-		orRoot <-:HSCcontains- .;
+		orRoot <-:HSCcontains- . <-:HSCcontains- .;
 	}
-	if { !orRoot.visited[0]; }	
+	if { !orRoot.visited; }	
 
 	modify {
 		emit("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");		
@@ -38,7 +38,7 @@ rule hscModel2eugeniaXMItext {
 		emit("</contains>");
 		emit("</topState>");
 		emit("</schart:Statechart>");
-		eval { orRoot.visited[0] = true; }
+		eval { orRoot.visited = true; }
 	}
 }
 
@@ -56,12 +56,12 @@ rule hscORchildren2eugeniaSC(or:HSCorState) {
 */
 rule HSCStartState2EugeniaText(parent:HSCorState) {
 	parent -:HSCcontains-> sta:HSCStartState;
-	if { !sta.visited[0]; }	
+	if { !sta.visited; }	
 	modify {
 		emit("<contains xmi:type=\"schart:Start\" xmi:id=\""+nameof(sta)+"\" name=\""+sta.name+"\" ");
 		exec(hscNext2emfText(sta));
 		emit("/>");
-		eval { sta.visited[0] = true; }
+		eval { sta.visited = true; }
 	}
 }
 rule hscNext2emfText(sce:HSCState) {
@@ -126,7 +126,7 @@ rule _hscRNext2emfText(sce:HSCState) {
 	
 rule HSCandState2EugeniaText(parent:HSCorState) {
 	parent -:HSCcontains-> and:HSCandState;			
-	if { !and.visited[0]; }
+	if { !and.visited; }
 	modify {
 		emit("<contains xsi:type=\"schart:AND\" xmi:id=\""+nameof(and)+"\" name=\""+and.name+"\" ");
 		exec(hscNext2emfText(and));
@@ -134,76 +134,76 @@ rule HSCandState2EugeniaText(parent:HSCorState) {
 		emit(">");
 		exec(hscANDchildren2eugeniaSC(and)*);// NEEDS REGION FOR EACH CONTAINED ELEMENT
 		emit("</contains>");
-		eval { and.visited[0] = true; }
+		eval { and.visited = true; }
 	}
 }
 
 rule hscANDchildren2eugeniaSC(and:HSCandState) {
 	and -:HSCcontains-> or:HSCorState; // via iteration of hscORchildren2eugeniaSC, we will visit each node that is further contained in the node "or"
-	if { !or.visited[0]; }	
+	if { !or.visited; }	
 	modify {
 		emit("<contains xsi:type=\"schart:OR\" xmi:id=\""+nameof(or)+"\" name=\""+or.name+"\">");
 		exec(hscORchildren2eugeniaSC(or));	
 		emit("</contains>");
-		eval { or.visited[0] = true; }
+		eval { or.visited = true; }
 	}
 }
 
 rule HSCbasicState2EugeniaText(parent:HSCorState) {
 	parent -:HSCcontains-> basic:HSCBasicState;
-	if { !basic.visited[0]; }	
+	if { !basic.visited; }	
 	modify {
 		emit("<contains xmi:type=\"schart:Basic\" xmi:id=\""+nameof(basic)+"\" name=\""+basic.name+"\" ");
 		exec(hscNext2emfText(basic));
 		exec(hscRNext2emfText(basic));
 		emit("/>");
-		eval { basic.visited[0] = true; }
+		eval { basic.visited = true; }
 	}
 }
 
 rule HSCfinalState2EugeniaText(parent:HSCorState) {
 	parent -:HSCcontains-> final:HSCFinalState;			
-	if { !final.visited[0]; }
+	if { !final.visited; }
 	modify {
 		emit("<contains xmi:type=\"schart:Final\" xmi:id=\""+nameof(final)+"\" name=\""+final.name+"\" ");
 		exec(hscRNext2emfText(final));		
 		emit("/>");
-		eval { final.visited[0] = true; }
+		eval { final.visited = true; }
 	}
 }
 
 rule HSCdecisionNode2EugeniaText(parent:HSCorState) {
 	parent -:HSCcontains-> choice:HSCDecisionNode;			
-	if { !choice.visited[0]; }
+	if { !choice.visited; }
 	modify {
 		emit("<contains xmi:type=\"schart:Decision\" xmi:id=\""+nameof(choice)+"\" name=\""+choice.name+"\" ");
 		exec(hscNext2emfText(choice));
 		exec(hscRNext2emfText(choice));		
 		emit("/>");
-		eval { choice.visited[0] = true; }
+		eval { choice.visited = true; }
 	}
 }
 
 rule HSCmergeNode2EugeniaText(parent:HSCorState) {
 	parent -:HSCcontains-> junction:HSCMergeNode;			
-	if { !junction.visited[0]; }
+	if { !junction.visited; }
 	modify {
 		emit("<contains xmi:type=\"schart:Merge\" xmi:id=\""+nameof(junction)+"\" name=\""+junction.name+"\" ");
 		exec(hscNext2emfText(junction));
 		exec(hscRNext2emfText(junction));		
 		emit("/>");
-		eval { junction.visited[0] = true; }
+		eval { junction.visited = true; }
 	}
 }
 
 rule HSCHyperEdgeFJ2EugeniaText(parent:HSCorState) { 
 	parent -:HSCcontains-> he:HSCHyperEdge;
-	if { !he.visited[0]; }
+	if { !he.visited; }
 	modify {
 		emit("<contains xmi:type=\"schart:HyperEdge\" xmi:id=\""+nameof(he)+"\" name=\""+he.name+"\" ");
 		exec(hscNext2emfText(he));
 		exec(hscRNext2emfText(he));		
 		emit("/>");
-		eval { he.visited[0] = true; }
+		eval { he.visited = true; }
 	}
 }

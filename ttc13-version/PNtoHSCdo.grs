@@ -18,10 +18,14 @@ silence off
 
 echo "|---> Performing the actual PN2SC translation..."
 xgrs [trans_place] && [trans_transition] && [trans_post]&& [trans_pre] ;>  (transform_singleton_pre_post $|| trans_AND_split $|| trans_AND_join)* 
-silence on
+
 echo "|---> Checking Metamodel Conformance"
 validate
 
 echo "|--> Showing output"
 dump add edge PN2HSC exclude
 show graph ycomp
+
+echo "|---> Serializing the output model to UML SC XMI for the Eugenia based GMF editor"
+redirect emit "uml/eugenia-sc-base.statechart" # is XMI2
+xgrs { ::visID2=valloc();hscModel2eugeniaXMItext;vfree(::visID2)}
