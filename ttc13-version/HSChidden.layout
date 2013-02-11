@@ -1,0 +1,5 @@
+dump add node HSCState exclude
+
+dump add edge HSCtarget exclude
+dump add edge HSCsource exclude
+dump add edge HSCcontains exclude

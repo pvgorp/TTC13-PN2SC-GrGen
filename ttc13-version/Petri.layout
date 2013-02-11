@@ -1,0 +1,14 @@
+debug set layout Hierarchic
+debug set layout option ORIENTATION LEFT_TO_RIGHT
+dump add node NamedElement shortinfotag name
+dump set node Token color Grey
+dump set node Token shape Circle
+dump set node Place shape ellipse
+dump set node Place color Yellow
+dump set node Transition shape Box
+dump set node Transition color LightGrey
+# dump add node Place group by hidden outgoing tokens
+dump set node Place labels off
+dump set edge pre labels off
+dump set edge post labels off
+dump set node Transition labels off

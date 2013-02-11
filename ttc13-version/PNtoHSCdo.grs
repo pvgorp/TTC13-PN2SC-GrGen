@@ -1,0 +1,27 @@
+import PetriNets.ecore ../testcases/paper-example.xmi PNtoHSC.grg
+echo "|---> Model Imported"
+
+include "statistics.gri"
+
+echo "|---> Mapping from EMF to Convenience structure"
+xgrs [trans_PlaceEMF] ;> [trans_TransitionEMF] ;> [trans_preEMF] ;> [trans_postEMF]
+
+include "statistics.gri"
+include "Petri.layout"
+include "HSC.layout"
+include "PetriEMF.layout"
+
+#echo "|---> Preparing the translation of a large input model"
+#custom graph analyze
+#custom actions gen_searchplan trans_AND_join trans_AND_split transform_singleton_pre_post  handlePrePlace_AND_join handlePrePlace_AND_split 
+silence off
+
+echo "|---> Performing the actual PN2SC translation..."
+xgrs [trans_place] && [trans_transition] && [trans_post]&& [trans_pre] ;>  (transform_singleton_pre_post $|| trans_AND_split $|| trans_AND_join)* 
+silence on
+echo "|---> Checking Metamodel Conformance"
+validate
+
+echo "|--> Showing output"
+dump add edge PN2HSC exclude
+show graph ycomp

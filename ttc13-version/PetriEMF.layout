@@ -1,0 +1,22 @@
+debug set layout Hierarchic
+debug set layout option ORIENTATION LEFT_TO_RIGHT
+dump add node pnet_NamedElement shortinfotag _name
+dump set node pnet_Place shape ellipse
+dump set node pnet_Transition shape Box
+dump set node pnet_Transition color Grey
+dump set node pnet_Place color Gold
+
+dump add node pnet_Net exclude
+dump add node pnet_Net group by hidden outgoing pnet_Net_places
+dump add node pnet_Net group by hidden outgoing pnet_Net_transitions
+dump set node pnet_Place labels off
+dump set edge pnet_Place_postt labels off 
+dump set edge pnet_Transition_postp labels off 
+
+dump add edge pnet_Place_pret exclude
+dump add edge pnet_Transition_prep exclude
+dump add edge pnet_Transition_cnet exclude
+dump add edge pnet_Place_cnet exclude
+
+dump set edge post labels off
+dump set node pnet_Transition labels off
