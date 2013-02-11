@@ -30,8 +30,7 @@ using PetriNets__ecore, PetriModel, StateChart, TraceModel;
 rule trans_place {
 	p:Place;	
 	modify {
-		/*p-tracelink:PN2HSC->*/s:HSCBasicState;
-		p-tracelink2:PN2HSC->or:HSCorState-:HSCcontains->s;
+		p -:PN2HSC-> or:HSCorState -:HSCcontains-> s:HSCBasicState;
 		eval {
 			s.name = p.name;
 		}		
@@ -41,10 +40,7 @@ rule trans_place {
 rule trans_transition {
 	t:Transition;
 	modify {				
-		/*t-tracelink:PN2HSC->*/e:HSCHyperEdge; 		
-		// NEW for XOR handling (breaks modularity a little)
-		t-tracelink2:PN2HSC->or:HSCorState-:HSCcontains->e;
-		// ENDNEW
+		t -:PN2HSC-> or:HSCorState -:HSCcontains-> e:HSCHyperEdge;
 		eval {
 			e.name=t.name;
 		}
@@ -54,14 +50,14 @@ rule trans_transition {
 rule trans_pre { 
 	s:HSCBasicState <-:HSCcontains- :HSCorState <-:PN2HSC- :Place -:pre-> t:Transition -:PN2HSC-> :HSCorState -:HSCcontains-> e:HSCHyperEdge;
 	modify {
-		s-:HSCsource->e;
+		s -:HSCsource-> e;
 	}
 }
 
 rule trans_post {
 	s:HSCBasicState <-:HSCcontains- :HSCorState <-:PN2HSC- :Place <-:post -t:Transition -:PN2HSC-> :HSCorState -:HSCcontains-> e:HSCHyperEdge;
 	modify {
-		e-:HSCtarget->s;
+		e -:HSCtarget-> s;
 	}
 }
 
