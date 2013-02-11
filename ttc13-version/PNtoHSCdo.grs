@@ -28,4 +28,6 @@ show graph ycomp
 
 echo "|---> Serializing the output model to UML SC XMI for the Eugenia based GMF editor"
 redirect emit "uml/eugenia-sc-base.statechart" # is XMI2
-xgrs { ::visID2=valloc();hscModel2eugeniaXMItext;vfree(::visID2)}
+xgrs { ::visID2=valloc()}
+xgrs hscModel2eugeniaXMItext
+xgrs {vfree(::visID2)}

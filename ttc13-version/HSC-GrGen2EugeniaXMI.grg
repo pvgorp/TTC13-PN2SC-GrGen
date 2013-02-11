@@ -22,10 +22,10 @@
 /**
 * Transform a set of Hierarchical Statecharts in a GrGen Model (graph) to XMI2 text based on PVG SC MM
 */
-rule hscModel2eugeniaXMItext() {
+rule hscModel2eugeniaXMItext {
 		orRoot:HSCorState;
 	negative {
-		orRoot <-:HSCcontains- . <-:HSCcontains- .;
+		orRoot <-:HSCcontains- .;
 	}
 	if { !orRoot.visited; }	
 
