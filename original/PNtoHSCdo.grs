@@ -1,13 +1,11 @@
 new graph PNtoHSC "pn and hsc m1"
 
 dump set edge PN2HSC color Purple
-#include "HSChidden.layout"
 include "Petri.layout"
 include "HSC.layout"
-#include "PetriHidden.layout"
 
 echo "|---> Loading input model (PETRI NET)"
-# silence on
+silence on
 include input.grs
 
 show num nodes only Place
@@ -34,12 +32,11 @@ show graph ycomp
 #custom actions gen_searchplan trans_AND_join trans_AND_split transform_singleton_pre_post  handlePrePlace_AND_join handlePrePlace_AND_split 
 silence off
 echo "|---> Performing the actual PN2HSC translation..."
-xgrs [trans_place]&&[trans_transition] &&[trans_post]&&[trans_pre]&& [trans_token] |  (transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)* 
+xgrs [trans_place]&&[trans_transition] &&[trans_post]&&[trans_pre]&& [trans_token] ;>  (transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)* 
 silence on
 echo "|---> Checking Metamodel Conformance"
 validate
 echo "|--> For debugging upon failure"
-include "HSC.layout"
 dump add edge PN2HSC exclude
 show graph ycomp
 
@@ -70,14 +67,11 @@ xgrs visID2 = valloc() && hscModel2eugeniaXMItext && vfree(visID2)
 
 xgrs cleanResultIfAllTransformed # almost empty if successful reduction
 
-#echo "Showing result in yComp"
+echo "Showing result in yComp"
+show graph ycomp
 dump reset
 
 include "PetriHidden.layout"
 
 # dump end-graph to .grs
-export PNtoHSCdo-out.grs
-# alternative approach for showing/saving output as a diagram:
-#show graph ycomp
-#debug enable
-#dump graph out.vcg
+# export PNtoHSCdo-out.grs

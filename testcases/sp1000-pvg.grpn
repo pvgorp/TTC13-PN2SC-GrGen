@@ -1,0 +1,333 @@
+##HOWTO: search-replace vI by vII and as a result you will have a new series of elements, connected to the prevIIIIIous ones
+## You can even simply include the prevIIIIIous one and do a save as on this file after the search/replace
+
+#sp1000-pvg using current Java approach (checked the sp1000-pvg.pnml.grsc visually and it was OK): 161 ms
+#sp1000-pvg using GrGen: 401ms
+
+include sp900-pvg.grpn
+new vIIIIIIIII_P0: Place(name="place_vIIIIIIIII_79")
+new vIIIIIIIII_P1: Place(name="place_vIIIIIIIII_77")
+new vIIIIIIIII_P2: Place(name="place_vIIIIIIIII_78")
+new vIIIIIIIII_P4: Place(name="place_vIIIIIIIII_71")
+new vIIIIIIIII_P5: Place(name="place_vIIIIIIIII_72")
+new vIIIIIIIII_P6: Place(name="place_vIIIIIIIII_70")
+new vIIIIIIIII_P7: Place(name="place_vIIIIIIIII_75")
+new vIIIIIIIII_P8: Place(name="place_vIIIIIIIII_76")
+new vIIIIIIIII_P9: Place(name="place_vIIIIIIIII_73")
+new vIIIIIIIII_P10: Place(name="place_vIIIIIIIII_74")
+new vIIIIIIIII_P11: Place(name="place_vIIIIIIIII_80")
+new vIIIIIIIII_P12: Place(name="place_vIIIIIIIII_8")
+new vIIIIIIIII_P13: Place(name="place_vIIIIIIIII_9")
+new vIIIIIIIII_P14: Place(name="place_vIIIIIIIII_15")
+new vIIIIIIIII_P15: Place(name="place_vIIIIIIIII_16")
+new vIIIIIIIII_P16: Place(name="place_vIIIIIIIII_17")
+new vIIIIIIIII_P17: Place(name="place_vIIIIIIIII_18")
+new vIIIIIIIII_P18: Place(name="place_vIIIIIIIII_11")
+new vIIIIIIIII_P19: Place(name="place_vIIIIIIIII_12")
+new vIIIIIIIII_P20: Place(name="place_vIIIIIIIII_13")
+new vIIIIIIIII_P21: Place(name="place_vIIIIIIIII_14")
+new vIIIIIIIII_P22: Place(name="place_vIIIIIIIII_10")
+new vIIIIIIIII_P23: Place(name="place_vIIIIIIIII_19")
+new vIIIIIIIII_P24: Place(name="place_vIIIIIIIII_28")
+new vIIIIIIIII_P25: Place(name="place_vIIIIIIIII_29")
+new vIIIIIIIII_P26: Place(name="place_vIIIIIIIII_26")
+new vIIIIIIIII_P27: Place(name="place_vIIIIIIIII_27")
+new vIIIIIIIII_P28: Place(name="place_vIIIIIIIII_24")
+new vIIIIIIIII_P29: Place(name="place_vIIIIIIIII_25")
+new vIIIIIIIII_P30: Place(name="place_vIIIIIIIII_22")
+new vIIIIIIIII_P31: Place(name="place_vIIIIIIIII_23")
+new vIIIIIIIII_P32: Place(name="place_vIIIIIIIII_20")
+new vIIIIIIIII_P33: Place(name="place_vIIIIIIIII_21")
+new vIIIIIIIII_P34: Place(name="place_vIIIIIIIII_30")
+new vIIIIIIIII_P35: Place(name="place_vIIIIIIIII_32")
+new vIIIIIIIII_P36: Place(name="place_vIIIIIIIII_31")
+new vIIIIIIIII_P37: Place(name="place_vIIIIIIIII_34")
+new vIIIIIIIII_P38: Place(name="place_vIIIIIIIII_33")
+new vIIIIIIIII_P39: Place(name="place_vIIIIIIIII_36")
+new vIIIIIIIII_P40: Place(name="place_vIIIIIIIII_35")
+new vIIIIIIIII_P41: Place(name="place_vIIIIIIIII_38")
+new vIIIIIIIII_P42: Place(name="place_vIIIIIIIII_37")
+new vIIIIIIIII_P43: Place(name="place_vIIIIIIIII_39")
+new vIIIIIIIII_P44: Place(name="place_vIIIIIIIII_43")
+new vIIIIIIIII_P45: Place(name="place_vIIIIIIIII_42")
+new vIIIIIIIII_P46: Place(name="place_vIIIIIIIII_41")
+new vIIIIIIIII_P47: Place(name="place_vIIIIIIIII_40")
+new vIIIIIIIII_P48: Place(name="place_vIIIIIIIII_47")
+new vIIIIIIIII_P49: Place(name="place_vIIIIIIIII_46")
+new vIIIIIIIII_P50: Place(name="place_vIIIIIIIII_45")
+new vIIIIIIIII_P51: Place(name="place_vIIIIIIIII_44")
+new vIIIIIIIII_P52: Place(name="place_vIIIIIIIII_49")
+new vIIIIIIIII_P53: Place(name="place_vIIIIIIIII_48")
+new vIIIIIIIII_P54: Place(name="place_vIIIIIIIII_4")
+new vIIIIIIIII_P55: Place(name="place_vIIIIIIIII_5")
+new vIIIIIIIII_P56: Place(name="place_vIIIIIIIII_6")
+new vIIIIIIIII_P57: Place(name="place_vIIIIIIIII_7")
+new vIIIIIIIII_P58: Place(name="place_vIIIIIIIII_0")
+new vIIIIIIIII_P59: Place(name="place_vIIIIIIIII_1")
+new vIIIIIIIII_P60: Place(name="place_vIIIIIIIII_2")
+new vIIIIIIIII_P61: Place(name="place_vIIIIIIIII_3")
+new vIIIIIIIII_P62: Place(name="place_vIIIIIIIII_52")
+new vIIIIIIIII_P63: Place(name="place_vIIIIIIIII_51")
+new vIIIIIIIII_P64: Place(name="place_vIIIIIIIII_54")
+new vIIIIIIIII_P65: Place(name="place_vIIIIIIIII_53")
+new vIIIIIIIII_P66: Place(name="place_vIIIIIIIII_50")
+new vIIIIIIIII_P67: Place(name="place_vIIIIIIIII_59")
+new vIIIIIIIII_P68: Place(name="place_vIIIIIIIII_56")
+new vIIIIIIIII_P69: Place(name="place_vIIIIIIIII_55")
+new vIIIIIIIII_P70: Place(name="place_vIIIIIIIII_58")
+new vIIIIIIIII_P71final: Place(name="place_vIIIIIIIII_57")
+new vIIIIIIIII_P72: Place(name="place_vIIIIIIIII_65")
+new vIIIIIIIII_P73: Place(name="place_vIIIIIIIII_64")
+new vIIIIIIIII_P74: Place(name="place_vIIIIIIIII_63")
+new vIIIIIIIII_P75: Place(name="place_vIIIIIIIII_62")
+new vIIIIIIIII_P76: Place(name="place_vIIIIIIIII_61")
+new vIIIIIIIII_P77: Place(name="place_vIIIIIIIII_60")
+new vIIIIIIIII_P78: Place(name="place_vIIIIIIIII_69")
+new vIIIIIIIII_P79: Place(name="place_vIIIIIIIII_68")
+new vIIIIIIIII_P80: Place(name="place_vIIIIIIIII_67")
+new vIIIIIIIII_P81: Place(name="place_vIIIIIIIII_66")
+new vIIIIIIIII_T0: Transition(name="trans_vIIIIIIIII_NewSuccOfP57")
+new vIIIIIIIII_T1: Transition(name="trans_vIIIIIIIII_56")
+new vIIIIIIIII_T2: Transition(name="trans_vIIIIIIIII_57")
+new vIIIIIIIII_T3: Transition(name="trans_vIIIIIIIII_58")
+new vIIIIIIIII_T4: Transition(name="trans_vIIIIIIIII_59")
+new vIIIIIIIII_T5: Transition(name="trans_vIIIIIIIII_52")
+new vIIIIIIIII_T6: Transition(name="trans_vIIIIIIIII_4")
+new vIIIIIIIII_T7: Transition(name="trans_vIIIIIIIII_53")
+new vIIIIIIIII_T8: Transition(name="trans_vIIIIIIIII_3")
+new vIIIIIIIII_T9: Transition(name="trans_vIIIIIIIII_6")
+new vIIIIIIIII_T10: Transition(name="trans_vIIIIIIIII_55")
+new vIIIIIIIII_T11: Transition(name="trans_vIIIIIIIII_5")
+new vIIIIIIIII_T12: Transition(name="trans_vIIIIIIIII_0")
+new vIIIIIIIII_T13: Transition(name="trans_vIIIIIIIII_2")
+new vIIIIIIIII_T14: Transition(name="trans_vIIIIIIIII_51")
+new vIIIIIIIII_T15: Transition(name="trans_vIIIIIIIII_1")
+new vIIIIIIIII_T16: Transition(name="trans_vIIIIIIIII_9")
+new vIIIIIIIII_T17: Transition(name="trans_vIIIIIIIII_7")
+new vIIIIIIIII_T18: Transition(name="trans_vIIIIIIIII_69")
+new vIIIIIIIII_T19: Transition(name="trans_vIIIIIIIII_68")
+new vIIIIIIIII_T20: Transition(name="trans_vIIIIIIIII_65")
+new vIIIIIIIII_T21: Transition(name="trans_vIIIIIIIII_66")
+new vIIIIIIIII_T22: Transition(name="trans_vIIIIIIIII_63")
+new vIIIIIIIII_T23: Transition(name="trans_vIIIIIIIII_64")
+new vIIIIIIIII_T24: Transition(name="trans_vIIIIIIIII_61")
+new vIIIIIIIII_T25: Transition(name="trans_vIIIIIIIII_62")
+new vIIIIIIIII_T26: Transition(name="trans_vIIIIIIIII_70")
+new vIIIIIIIII_T27: Transition(name="trans_vIIIIIIIII_71")
+new vIIIIIIIII_T28: Transition(name="trans_vIIIIIIIII_72")
+new vIIIIIIIII_T29: Transition(name="trans_vIIIIIIIII_11")
+new vIIIIIIIII_T30: Transition(name="trans_vIIIIIIIII_10")
+new vIIIIIIIII_T31: Transition(name="trans_vIIIIIIIII_17")
+new vIIIIIIIII_T32: Transition(name="trans_vIIIIIIIII_16")
+new vIIIIIIIII_T33: Transition(name="trans_vIIIIIIIII_19")
+new vIIIIIIIII_T34: Transition(name="trans_vIIIIIIIII_18")
+new vIIIIIIIII_T35: Transition(name="trans_vIIIIIIIII_13")
+new vIIIIIIIII_T36: Transition(name="trans_vIIIIIIIII_12")
+new vIIIIIIIII_T37: Transition(name="trans_vIIIIIIIII_14")
+new vIIIIIIIII_T38: Transition(name="trans_vIIIIIIIII_21")
+new vIIIIIIIII_T39: Transition(name="trans_vIIIIIIIII_20")
+new vIIIIIIIII_T40: Transition(name="trans_vIIIIIIIII_28")
+new vIIIIIIIII_T41: Transition(name="trans_vIIIIIIIII_27")
+new vIIIIIIIII_T42: Transition(name="trans_vIIIIIIIII_26")
+new vIIIIIIIII_T43: Transition(name="trans_vIIIIIIIII_25")
+new vIIIIIIIII_T44: Transition(name="trans_vIIIIIIIII_24")
+new vIIIIIIIII_T45: Transition(name="trans_vIIIIIIIII_23")
+new vIIIIIIIII_T46: Transition(name="trans_vIIIIIIIII_30")
+new vIIIIIIIII_T47: Transition(name="trans_vIIIIIIIII_33")
+new vIIIIIIIII_T48: Transition(name="trans_vIIIIIIIII_32")
+new vIIIIIIIII_T49: Transition(name="trans_vIIIIIIIII_35")
+new vIIIIIIIII_T50: Transition(name="trans_vIIIIIIIII_37")
+new vIIIIIIIII_T51: Transition(name="trans_vIIIIIIIII_36")
+new vIIIIIIIII_T52: Transition(name="trans_vIIIIIIIII_39")
+new vIIIIIIIII_T53: Transition(name="trans_vIIIIIIIII_38")
+new vIIIIIIIII_T54: Transition(name="trans_vIIIIIIIII_40")
+new vIIIIIIIII_T55: Transition(name="trans_vIIIIIIIII_44")
+new vIIIIIIIII_T56: Transition(name="trans_vIIIIIIIII_43")
+new vIIIIIIIII_T57: Transition(name="trans_vIIIIIIIII_42")
+new vIIIIIIIII_T58: Transition(name="trans_vIIIIIIIII_48")
+new vIIIIIIIII_T59: Transition(name="trans_vIIIIIIIII_47")
+new vIIIIIIIII_T60: Transition(name="trans_vIIIIIIIII_46")
+new vIIIIIIIII_T61: Transition(name="trans_vIIIIIIIII_45")
+new vIIIIIIIII_T62: Transition(name="trans_vIIIIIIIII_49")
+new vIIIIIIIII_P14-:outArc->vIIIIIIIII_T0
+new vIIIIIIIII_T0-:inArc->vIIIIIIIII_P18
+new vIIIIIIIII_T1-:inArc->vIIIIIIIII_P1
+new vIIIIIIIII_P5-:outArc->vIIIIIIIII_T2
+new vIIIIIIIII_T2-:inArc->vIIIIIIIII_P6
+new vIIIIIIIII_T2-:inArc->vIIIIIIIII_P18
+new vIIIIIIIII_P6-:outArc->vIIIIIIIII_T3
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P43
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P49
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P68
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P23
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P47
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P15
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P27
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P70
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P25
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P56
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P35
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P55
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P30
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P19
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P2
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P33
+new vIIIIIIIII_T3-:inArc->vIIIIIIIII_P42
+new vIIIIIIIII_P60-:outArc->vIIIIIIIII_T4
+new vIIIIIIIII_T4-:inArc->vIIIIIIIII_P51
+new vIIIIIIIII_P62-:outArc->vIIIIIIIII_T5
+new vIIIIIIIII_T5-:inArc->vIIIIIIIII_P71final
+new vIIIIIIIII_P39-:outArc->vIIIIIIIII_T6
+new vIIIIIIIII_T6-:inArc->vIIIIIIIII_P5
+new vIIIIIIIII_P64-:outArc->vIIIIIIIII_T7
+new vIIIIIIIII_T7-:inArc->vIIIIIIIII_P29
+new vIIIIIIIII_P22-:outArc->vIIIIIIIII_T8
+new vIIIIIIIII_T8-:inArc->vIIIIIIIII_P21
+new vIIIIIIIII_P76-:outArc->vIIIIIIIII_T9
+new vIIIIIIIII_T9-:inArc->vIIIIIIIII_P77
+new vIIIIIIIII_P12-:outArc->vIIIIIIIII_T10
+new vIIIIIIIII_T10-:inArc->vIIIIIIIII_P72
+new vIIIIIIIII_P66-:outArc->vIIIIIIIII_T11
+new vIIIIIIIII_T11-:inArc->vIIIIIIIII_P50
+new vIIIIIIIII_P65-:outArc->vIIIIIIIII_T12
+new vIIIIIIIII_T12-:inArc->vIIIIIIIII_P14
+new vIIIIIIIII_P42-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P30-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P18-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P15-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P33-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P27-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P43-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P56-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P25-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P47-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P23-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P68-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P35-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P49-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P70-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P55-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P2-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_P19-:outArc->vIIIIIIIII_T13
+new vIIIIIIIII_T13-:inArc->vIIIIIIIII_P62
+new vIIIIIIIII_P40-:outArc->vIIIIIIIII_T14
+new vIIIIIIIII_T14-:inArc->vIIIIIIIII_P0
+new vIIIIIIIII_P80-:outArc->vIIIIIIIII_T15
+new vIIIIIIIII_T15-:inArc->vIIIIIIIII_P17
+new vIIIIIIIII_P65-:outArc->vIIIIIIIII_T16
+new vIIIIIIIII_T16-:inArc->vIIIIIIIII_P14
+new vIIIIIIIII_P73-:outArc->vIIIIIIIII_T17
+new vIIIIIIIII_T17-:inArc->vIIIIIIIII_P9
+new vIIIIIIIII_P53-:outArc->vIIIIIIIII_T18
+new vIIIIIIIII_T18-:inArc->vIIIIIIIII_P10
+new vIIIIIIIII_P24-:outArc->vIIIIIIIII_T19
+new vIIIIIIIII_T19-:inArc->vIIIIIIIII_P22
+new vIIIIIIIII_P62-:outArc->vIIIIIIIII_T20
+new vIIIIIIIII_T20-:inArc->vIIIIIIIII_P71final
+new vIIIIIIIII_P16-:outArc->vIIIIIIIII_T21
+new vIIIIIIIII_T21-:inArc->vIIIIIIIII_P63
+new vIIIIIIIII_P13-:outArc->vIIIIIIIII_T22
+new vIIIIIIIII_T22-:inArc->vIIIIIIIII_P16
+new vIIIIIIIII_P65-:outArc->vIIIIIIIII_T23
+new vIIIIIIIII_T23-:inArc->vIIIIIIIII_P14
+new vIIIIIIIII_P10-:outArc->vIIIIIIIII_T24
+new vIIIIIIIII_T24-:inArc->vIIIIIIIII_P24
+new vIIIIIIIII_P4-:outArc->vIIIIIIIII_T25
+new vIIIIIIIII_T25-:inArc->vIIIIIIIII_P66
+new vIIIIIIIII_P1-vIIIIIIIII_connectingArc:outArc->vIIIIIIIII_T26
+new vIIIIIIIII_T26-:inArc->vIIIIIIIII_P31
+new vIIIIIIIII_T26-:inArc->vIIIIIIIII_P26
+new vIIIIIIIII_T26-:inArc->vIIIIIIIII_P57
+new vIIIIIIIII_T26-:inArc->vIIIIIIIII_P52
+new vIIIIIIIII_T26-:inArc->vIIIIIIIII_P81
+new vIIIIIIIII_T26-:inArc->vIIIIIIIII_P32
+new vIIIIIIIII_T26-:inArc->vIIIIIIIII_P59
+new vIIIIIIIII_T26-:inArc->vIIIIIIIII_P75
+new vIIIIIIIII_T26-:inArc->vIIIIIIIII_P11
+new vIIIIIIIII_T26-:inArc->vIIIIIIIII_P67
+new vIIIIIIIII_P26-:outArc->vIIIIIIIII_T27
+new vIIIIIIIII_P8-:outArc->vIIIIIIIII_T27
+new vIIIIIIIII_P31-:outArc->vIIIIIIIII_T27
+new vIIIIIIIII_P11-:outArc->vIIIIIIIII_T27
+new vIIIIIIIII_P57-:outArc->vIIIIIIIII_T27
+new vIIIIIIIII_P32-:outArc->vIIIIIIIII_T27
+new vIIIIIIIII_P52-:outArc->vIIIIIIIII_T27
+new vIIIIIIIII_P36-:outArc->vIIIIIIIII_T27
+new vIIIIIIIII_P78-:outArc->vIIIIIIIII_T27
+new vIIIIIIIII_P81-:outArc->vIIIIIIIII_T27
+new vIIIIIIIII_P59-:outArc->vIIIIIIIII_T27
+new vIIIIIIIII_T27-:inArc->vIIIIIIIII_P41
+new vIIIIIIIII_P62-:outArc->vIIIIIIIII_T28
+new vIIIIIIIII_T28-:inArc->vIIIIIIIII_P71final
+new vIIIIIIIII_P61-:outArc->vIIIIIIIII_T29
+new vIIIIIIIII_T29-:inArc->vIIIIIIIII_P54
+new vIIIIIIIII_P28-:outArc->vIIIIIIIII_T30
+new vIIIIIIIII_T30-:inArc->vIIIIIIIII_P76
+new vIIIIIIIII_P46-:outArc->vIIIIIIIII_T31
+new vIIIIIIIII_T31-:inArc->vIIIIIIIII_P45
+new vIIIIIIIII_P72-:outArc->vIIIIIIIII_T32
+new vIIIIIIIII_T32-:inArc->vIIIIIIIII_P7
+new vIIIIIIIII_P20-:outArc->vIIIIIIIII_T33
+new vIIIIIIIII_T33-:inArc->vIIIIIIIII_P38
+new vIIIIIIIII_P74-:outArc->vIIIIIIIII_T34
+new vIIIIIIIII_T34-:inArc->vIIIIIIIII_P53
+new vIIIIIIIII_P18-:outArc->vIIIIIIIII_T35
+new vIIIIIIIII_T35-:inArc->vIIIIIIIII_P60
+new vIIIIIIIII_P17-:outArc->vIIIIIIIII_T36
+new vIIIIIIIII_T36-:inArc->vIIIIIIIII_P37
+new vIIIIIIIII_P41-:outArc->vIIIIIIIII_T37
+new vIIIIIIIII_T37-:inArc->vIIIIIIIII_P39
+new vIIIIIIIII_P0-:outArc->vIIIIIIIII_T38
+new vIIIIIIIII_T38-:inArc->vIIIIIIIII_P34
+new vIIIIIIIII_P77-:outArc->vIIIIIIIII_T39
+new vIIIIIIIII_T39-:inArc->vIIIIIIIII_P20
+new vIIIIIIIII_P62-:outArc->vIIIIIIIII_T40
+new vIIIIIIIII_T40-:inArc->vIIIIIIIII_P71final
+new vIIIIIIIII_P79-:outArc->vIIIIIIIII_T41
+new vIIIIIIIII_T41-:inArc->vIIIIIIIII_P58
+new vIIIIIIIII_P51-:outArc->vIIIIIIIII_T42
+new vIIIIIIIII_T42-:inArc->vIIIIIIIII_P73
+new vIIIIIIIII_P54-:outArc->vIIIIIIIII_T43
+new vIIIIIIIII_T43-:inArc->vIIIIIIIII_P28
+new vIIIIIIIII_P50-:outArc->vIIIIIIIII_T44
+new vIIIIIIIII_T44-:inArc->vIIIIIIIII_P74
+new vIIIIIIIII_P58-:outArc->vIIIIIIIII_T45
+new vIIIIIIIII_T45-:inArc->vIIIIIIIII_P4
+new vIIIIIIIII_P21-:outArc->vIIIIIIIII_T46
+new vIIIIIIIII_T46-:inArc->vIIIIIIIII_P61
+new vIIIIIIIII_P67-:outArc->vIIIIIIIII_T47
+new vIIIIIIIII_T47-:inArc->vIIIIIIIII_P12
+new vIIIIIIIII_P75-:outArc->vIIIIIIIII_T48
+new vIIIIIIIII_T48-:inArc->vIIIIIIIII_P36
+new vIIIIIIIII_P29-:outArc->vIIIIIIIII_T49
+new vIIIIIIIII_T49-:inArc->vIIIIIIIII_P46
+new vIIIIIIIII_P45-:outArc->vIIIIIIIII_T50
+new vIIIIIIIII_T50-:inArc->vIIIIIIIII_P69
+new vIIIIIIIII_P37-:outArc->vIIIIIIIII_T51
+new vIIIIIIIII_T51-:inArc->vIIIIIIIII_P65
+new vIIIIIIIII_P63-:outArc->vIIIIIIIII_T52
+new vIIIIIIIII_T52-:inArc->vIIIIIIIII_P64
+new vIIIIIIIII_P62-:outArc->vIIIIIIIII_T53
+new vIIIIIIIII_T53-:inArc->vIIIIIIIII_P71final
+new vIIIIIIIII_P69-:outArc->vIIIIIIIII_T54
+new vIIIIIIIII_T54-:inArc->vIIIIIIIII_P44
+new vIIIIIIIII_P65-:outArc->vIIIIIIIII_T55
+new vIIIIIIIII_T55-:inArc->vIIIIIIIII_P14
+new vIIIIIIIII_P62-:outArc->vIIIIIIIII_T56
+new vIIIIIIIII_T56-:inArc->vIIIIIIIII_P71final
+new vIIIIIIIII_P7-:outArc->vIIIIIIIII_T57
+new vIIIIIIIII_T57-:inArc->vIIIIIIIII_P8
+new vIIIIIIIII_T57-:inArc->vIIIIIIIII_P78
+new vIIIIIIIII_P34-:outArc->vIIIIIIIII_T58
+new vIIIIIIIII_T58-:inArc->vIIIIIIIII_P79
+new vIIIIIIIII_P38-:outArc->vIIIIIIIII_T59
+new vIIIIIIIII_T59-:inArc->vIIIIIIIII_P13
+new vIIIIIIIII_P9-:outArc->vIIIIIIIII_T60
+new vIIIIIIIII_T60-:inArc->vIIIIIIIII_P48
+new vIIIIIIIII_P44-:outArc->vIIIIIIIII_T61
+new vIIIIIIIII_T61-:inArc->vIIIIIIIII_P80
+new vIIIIIIIII_P48-:outArc->vIIIIIIIII_T62
+new vIIIIIIIII_T62-:inArc->vIIIIIIIII_P40
+new vIIIIIIII_P71final -:outArc->vIIIIIIIII_T1 ## essential connect-line
+
+

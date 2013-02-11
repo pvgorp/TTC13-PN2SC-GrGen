@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><pnml>
+<net id="n1" type="BlackTokenNet">
+<place id="P11">
+<name><value>P11</value><text>P11</text></name>
+</place>
+<place id="P10">
+<name><value>P10</value><text>P10</text></name>
+</place>
+<place id="P9">
+<name><value>P9</value><text>P9</text></name>
+</place>
+<place id="P8">
+<name><value>P8</value><text>P8</text></name>
+</place>
+<place id="P7">
+<name><value>P7</value><text>P7</text></name>
+</place>
+<place id="P6">
+<name><value>P6</value><text>P6</text></name>
+</place>
+<place id="P4">
+<name><value>P4</value><text>P4</text></name>
+</place>
+<place id="P5">
+<name><value>P5</value><text>P5</text></name>
+</place>
+<place id="P3">
+<name><value>P3</value><text>P3</text></name>
+</place>
+<place id="P2">
+<name><value>P2</value><text>P2</text></name>
+</place>
+<place id="P1">
+<name><value>P1</value><text>P1</text></name>
+</place>
+<transition id="T7">
+<name><value>T7</value><text>T7</text></name>
+</transition>
+<arc source="P9" target="T7" id="$24"></arc>
+<arc source="T7" target="P10" id="$26"></arc><transition id="T6">
+<name><value>T6</value><text>T6</text></name>
+</transition>
+<arc source="P8" target="T6" id="$1F"></arc>
+<arc source="P5" target="T6" id="$20"></arc>
+<arc source="T6" target="P9" id="$22"></arc><transition id="T5">
+<name><value>T5</value><text>T5</text></name>
+</transition>
+<arc source="P7" target="T5" id="$1B"></arc>
+<arc source="T5" target="P8" id="$1D"></arc><transition id="T4">
+<name><value>T4</value><text>T4</text></name>
+</transition>
+<arc source="P6" target="T4" id="$17"></arc>
+<arc source="T4" target="P7" id="$19"></arc><transition id="T3">
+<name><value>T3</value><text>T3</text></name>
+</transition>
+<arc source="P3" target="T3" id="$F"></arc>
+<arc source="P4" target="T3" id="$13"></arc>
+<arc source="T3" target="P5" id="$10"></arc><transition id="T2">
+<name><value>T2</value><text>T2</text></name>
+</transition>
+<arc source="P2" target="T2" id="$B"></arc>
+<arc source="T2" target="P3" id="$C"></arc><transition id="T1">
+<name><value>T1</value><text>T1</text></name>
+</transition>
+<arc source="P1" target="T1" id="$7"></arc>
+<arc source="T1" target="P2" id="$8"></arc><arc source="T1" target="P4" id="$12"></arc><arc source="T1" target="P6" id="$15"></arc><arc source="T1" target="P11" id="$28"></arc></net></pnml>

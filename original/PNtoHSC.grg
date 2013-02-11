@@ -23,7 +23,6 @@
 // @title A transformation from petri-nets to hierarchical statecharts
 
 using PetriModel, StateChart, TraceModel;
-#include "Petri.grg"
 #include "PetriNormalizer.grg" 
 #include "Petri-GrGen2PNML.grg" 
 #include "Petri-GrGen2GRPN.grg"
@@ -53,11 +52,15 @@ rule trans_place {
 
 rule trans_token {
 	p:Place -tracelink:PN2HSC->s:HSCBasicState <-:HSCcontains- or:HSCorState;
-	p -tks:tokens-> t:Token; 
+	multiple { 
+		p -tks:tokens-> t:Token; 
+		modify {
+			delete(t);
+		}
+	}
 	modify {
 		or -:HSCcontains-> st:HSCStartState -:HSCsource-> e:HSCHyperEdge -:HSCtarget-> s;
 		or -:HSCcontains-> e;
-		delete(t);
 	}
 }
 

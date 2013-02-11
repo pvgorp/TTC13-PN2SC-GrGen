@@ -1,0 +1,47 @@
+new patientarrived: Place(name="patient arrived")
+new patientregisteredinHIS: Place(name="patient registered in HIS")
+new patientwalkingtodermatology: Place(name="patient walking to dermatology")
+new photographsordered: Place(name="photographs ordered")
+new biopsyordered: Place(name="biopsy ordered")
+new patientinhall: Place(name="patient in hall")
+new takepictures: Place(name="take pictures")
+new waitingforphotographer: Place(name="waiting for photographer")
+new waitingfordermatologist: Place(name="waiting for dermatologist")
+new dermatologistsession: Place(name="dermatologist session")
+new eIDsignin: Transition(name="eID signin")
+new patientarrived-:outArc->eIDsignin
+new eIDsignin-:inArc->patientregisteredinHIS
+new secretarysignin: Transition(name="secretary signin")
+new patientarrived-:outArc->secretarysignin
+new secretarysignin-:inArc->patientregisteredinHIS
+new needspicscannotwalk: Transition(name="needs pics, cannot walk")
+new patientregisteredinHIS-:outArc->needspicscannotwalk
+new needspicscannotwalk-:inArc->photographsordered
+new needspicscannotwalk-:inArc->patientinhall
+new needspicscannotwalk-:inArc->biopsyordered
+new needspicscanwalk:Transition(name="needs pics, can walk")
+new patientregisteredinHIS-:outArc->needspicscanwalk
+new needspicscanwalk-:inArc->biopsyordered
+new needspicscanwalk-:inArc->photographsordered
+new needspicscanwalk-:inArc->patientwalkingtodermatology
+new nursepicksuppatient: Transition(name="nurse picks up patient")
+new patientinhall-:outArc->nursepicksuppatient
+new photographsordered-:outArc->nursepicksuppatient
+new nursepicksuppatient-:inArc->waitingforphotographer
+new patientissenttophotographer: Transition(name="patient is sent to photographer")
+new patientwalkingtodermatology-:outArc->patientissenttophotographer
+new patientissenttophotographer-:inArc->waitingforphotographer
+new beginphotographysession:Transition(name="begin photography session")
+new waitingforphotographer-:outArc->beginphotographysession
+new beginphotographysession-:inArc->takepictures
+new patienthashighqualitypicsalready: Transition(name="patient has high quality pics already")
+new patientregisteredinHIS-:outArc->patienthashighqualitypicsalready
+new patienthashighqualitypicsalready-:inArc->biopsyordered
+new patienthashighqualitypicsalready-:inArc->waitingfordermatologist
+new endphotographysession: Transition(name="end photography session")
+new takepictures-:outArc->endphotographysession
+new endphotographysession-:inArc->waitingfordermatologist
+new dermatologistcallsinpatient: Transition(name="dermatologist calls in patient")
+new waitingfordermatologist-:outArc->dermatologistcallsinpatient
+new biopsyordered-:outArc->dermatologistcallsinpatient
+new dermatologistcallsinpatient-:inArc->dermatologistsession
