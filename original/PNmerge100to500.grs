@@ -1,0 +1,74 @@
+new graph PNtoHSC "PN Merging"
+
+include "Petri.layout"
+include "HSC.layout"
+
+silence on
+## 1+1=2
+
+echo "Including delta net (the small one)"
+include sp100-prom-woped-noIsoTrans-noIslands-v5.pnml.grpn
+
+echo "Making names unique"
+xgrs [addSuffixToNamedElement]
+
+echo "Including host net (the big one)"
+include sp100-prom-woped-noIsoTrans-noIslands-v5.pnml.grpn
+
+echo "Making names unique (union)"
+xgrs resolveNameConflict*
+
+include "KarlsruheNet2EindhovenNet.grs" # set pre and post links
+echo "Gluing nets together"
+debug xgrs %glueNets
+
+#2+1=3
+echo "Making names unique"
+xgrs [addSuffixToNamedElement]
+include sp100-prom-woped-noIsoTrans-noIslands-v5.pnml.grpn
+echo "Making names unique (union)"
+xgrs resolveNameConflict*
+
+include "KarlsruheNet2EindhovenNet.grs" # set pre and post links
+echo "Gluing nets together"
+debug xgrs %glueNets
+
+
+#3+1=4
+echo "Making names unique"
+xgrs [addSuffixToNamedElement]
+include sp100-prom-woped-noIsoTrans-noIslands-v5.pnml.grpn
+echo "Making names unique (union)"
+xgrs resolveNameConflict*
+
+include "KarlsruheNet2EindhovenNet.grs" # set pre and post links
+echo "Gluing nets together"
+xgrs glueNets
+
+
+#4+1=5
+echo "Making names unique"
+xgrs [addSuffixToNamedElement]
+include sp100-prom-woped-noIsoTrans-noIslands-v5.pnml.grpn
+echo "Making names unique (union)"
+xgrs resolveNameConflict*
+
+include "KarlsruheNet2EindhovenNet.grs" # set pre and post links
+echo "Gluing nets together"
+xgrs glueNets
+
+silence off
+
+echo "|---> Normalizing input (:pre/:post)"
+include "KarlsruheNet2EindhovenNet.grs" # set pre and post links
+
+#custom graph analyze
+#custom actions gen_searchplan glueNets connected resolveNameConflict 
+
+#echo "Gluing nets together"
+#xgrs glueNets
+
+include EindhovenNet2KarlsruheNet.grs
+
+redirect emit sp500-pvg2.pnml
+xgrs visID1 = valloc() && pnModel2pnmlText && vfree(visID1)

@@ -1,0 +1,21 @@
+new graph PNtoHSC "grpn output"
+
+include "Petri.layout"
+
+silence on
+include "claim.grpn"
+# include sp200000-pvg.grpn
+show num nodes
+show num edges
+
+echo "======== adding net element "
+xgrs addGlobalNetElementIfNoNetElementPresent
+
+echo "======== alloc 1 "
+xgrs visID1 = valloc()
+xgrs (idI)=returnZero
+echo "======== starting iteration for IDs "
+debug xgrs ((idI)=setNewID(visID1, idI))* && vfree(visID1)
+echo "======== outputting text "                                         
+redirect emit claim.petrinet
+xgrs visID2 = valloc() && pnModel2emfText && vfree(visID2)

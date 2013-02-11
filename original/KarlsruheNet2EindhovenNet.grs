@@ -1,0 +1,1 @@
+xgrs removeNetElement | setPre* && setPost* &&[delInArcs]&&[delOutArcs]

@@ -1,0 +1,43 @@
+new graph PNtoHSC "PN Merging"
+
+include "Petri.layout"
+include "HSC.layout"
+
+silence on
+echo "Including delta net (the small one)"
+include sp200-pvg.grpn
+
+echo "|---> Normalizing input (:pre/:post)"
+include "KarlsruheNet2EindhovenNet.grs" # set pre and post links
+
+custom graph analyze
+custom actions gen_searchplan glueNets resolveNameConflict connectStartEnd
+
+xgrs connectStartEnd
+
+echo "Making names unique"
+xgrs [addSuffixToNamedElement]
+
+echo "Including host net (the big one)"
+include sp200-pvg.grpn
+
+xgrs [addSuffixToNamedElement]
+
+echo "|---> Normalizing input (:pre/:post)"
+include "KarlsruheNet2EindhovenNet.grs" # set pre and post links
+xgrs connectStartEnd
+
+echo "Making names unique (union)"
+#xgrs resolveNameConflict*
+silence off
+
+echo "Gluing nets together"
+xgrs glueNets
+
+include EindhovenNet2KarlsruheNet.grs
+
+redirect emit sp400-pvgN.grpn
+xgrs visID2 = valloc() && pnModel2grpnText && vfree(visID2)
+
+redirect emit sp100000-pvg.pnml
+xgrs visID1 = valloc() && pnModel2pnmlText && vfree(visID1)

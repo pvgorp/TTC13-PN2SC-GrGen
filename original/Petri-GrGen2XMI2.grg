@@ -1,0 +1,133 @@
+/*
+* This file is part of PN2SC.
+*  
+* PN2SC: Petri-Net to Statechart translator based on GrGen.NET rules
+* Copyright (C) 2010,2011,2012,2013 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* 
+* PN2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* PN2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with PN2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+/**
+* Transform a set of Petri-Nets in a GrGen Model (graph) to emf text
+*/
+rule pnModel2emfText {
+	// no LHS => do not iterate over this one!
+	modify {
+		exec([addIDsWhereNotYetSet]);
+		emit("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+		exec(pnPetriNet2emfText*);	
+	}
+}
+
+/**
+* Transform a Petri-Net element to emf text
+*/
+rule pnPetriNet2emfText {
+	pn:PetriNet;
+	if { !pn.visited[0]; }	
+	modify {
+		eval { pn.visited[0] = true; }
+		emit("<pnet:Net xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:pnet=\"http://uam.es/PetriNets\" xsi:schemaLocation=\"http://uam.es/PetriNets ../metamodels/PetriNets.ecore\" xmi:id=\""+nameof(pn)+"\">\n");
+		exec(pnPlace2emfText(pn)*);
+		exec(pnTransition2emfText(pn)*);
+		emit("</pnet:Net>");		
+	}
+}
+
+/**
+* Transform a Place element to emf text
+*/
+rule pnPlace2emfText(pn:PetriNet) {
+	pn-:places->p:Place;
+	if { !p.visited[0]; }	
+	modify {
+		eval { p.visited[0] = true; }
+		emit("<places xmi:id=\""+nameof(p)+"\" name=\""+p.name+"\" postt=\"");
+		exec(pnPlacePOST2emfText(p));
+		emit("\" pret=\"");
+		exec(pnPlacePRE2emfText(p));
+		emit("\"></places>\n"); 
+	}
+}
+
+/** 
+* Transform attached POST edges to EMF references
+*/
+rule pnPlacePOST2emfText(p:Place) {
+	iterated {
+		p -:outArc-> t:Transition;
+		modify {
+			emit(" "+nameof(t));
+		}
+	}
+	modify {
+	}
+}
+/** 
+* Transform attached PRE edges to EMF references
+*/
+rule pnPlacePRE2emfText(p:Place) {
+	iterated {
+		p <-:inArc- t:Transition;
+		modify {
+			emit(" "+nameof(t));
+		}
+	}
+	modify {
+	}
+}
+
+/**
+* Transform a Transition element to emf text
+*/
+rule pnTransition2emfText(pn:PetriNet) {
+	pn-:transitions->t:Transition;
+	if { !t.visited[0]; }	
+	modify {
+		eval { t.visited[0] = true; }
+		emit("<transitions xmi:id=\""+nameof(t)+"\" name=\""+t.name+"\" postp=\"");
+		exec(pnTransitionPOST2emfText(t));
+		emit("\" prep=\"");
+		exec(pnTransitionPRE2emfText(t));
+		emit("\"></transitions>\n"); 
+	}
+}
+
+/** 
+* Transform attached Transition POST edges to EMF references
+*/
+rule pnTransitionPOST2emfText(t:Transition) {
+	iterated {
+		t -:inArc-> p:Place;
+		modify {
+			emit(" "+nameof(p));
+		}
+	}
+	modify {
+	}
+}
+/** 
+* Transform attached Transition PRE edges to EMF references
+*/
+rule pnTransitionPRE2emfText(t:Transition) {
+	iterated {
+		t <-:outArc- p:Place;
+		modify {
+			emit(" "+nameof(p));
+		}
+	}
+	modify {
+	}
+}

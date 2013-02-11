@@ -1,0 +1,71 @@
+/*
+* This file is part of PN2SC.
+*  
+* PN2SC: Petri-Net to Statechart translator based on GrGen.NET rules
+* Copyright (C) 2010,2011,2012,2013 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* 
+* PN2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* PN2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with PN2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+using PetriNets__ecore, PetriModel;
+
+#include "PetriNormalizer.grg"
+#include "Petri-GrGen2PNML.grg"
+#include "Petri-GrGen2GRPN.grg"
+
+rule trans_Place {
+	p1:pnet_Place;	
+	modify {
+		p2:Place;
+		eval {
+			p2.name = p1._name;
+		}		
+	}
+}
+
+rule trans_Transition {
+	t1:pnet_Transition;
+	modify {				
+		t2:Transition; 		
+		eval {
+			t2.name=t1._name;
+		}
+	}
+}
+
+rule trans_pre { 
+	prePl:pnet_Place -:pnet_Place_postt-> t:pnet_Transition;
+	prePl2:Place;
+	t2:Transition;
+	if { prePl._name == prePl2.name; }
+	if { t._name == t2.name; }
+	modify {
+		// prePl2-:pre->t2;
+		prePl2-:outArc->t2;
+	}
+}
+
+rule trans_post { 
+	postPl:pnet_Place <-:pnet_Transition_postp- t:pnet_Transition;
+	postPl2:Place;
+	t2:Transition;
+	if { postPl._name == postPl2.name; }
+	if { t._name == t2.name; }
+	modify {
+		// postPl2 <-:post- t2;
+		postPl2 <-:inArc- t2;
+	}
+}
+

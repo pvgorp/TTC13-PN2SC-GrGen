@@ -1,0 +1,13 @@
+import PetriNets.ecore skincare2.xmi ImportPetriEMF.grg
+
+show num nodes 
+
+include "Petri.layout"
+xgrs [trans_Place] ;> [trans_Transition] ;> [trans_pre] ;> [trans_post]
+xgrs addGlobalNetElementIfNoNetElementPresent
+echo "|---> Serializing input to PNML"
+
+redirect emit skin2.grpn
+xgrs visID1 = valloc() && pnModel2grpnText && vfree(visID1)
+include "KarlsruheNet2EindhovenNet.grs" # set pre and post links
+show graph yComp

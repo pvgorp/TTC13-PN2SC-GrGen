@@ -1,0 +1,99 @@
+#@author Pieter Van Gorp
+new graph PNtoHSC "manually created HSC for Fig2 (Rik Eshuis FM2009)"
+
+include "HSC.layout"
+
+new start:HSCStartState
+new P1:HSCBasicState(name="P1")
+new start-:HSCsource->P1
+new t1: HSCHyperEdge(name="t1")
+new P1-:HSCsource->t1
+
+new P2: HSCBasicState(name="P2")
+new t1-:HSCtarget->P2
+new P4: HSCBasicState(name="P4")
+new t1-:HSCtarget->P4
+new P6: HSCBasicState(name="P6")
+new t1-:HSCtarget->P6
+new P11: HSCBasicState(name="P11")
+new t1-:HSCtarget->P11
+
+#context O1
+new P3: HSCBasicState(name="P3")
+new P2-:HSCtarget->P3 #note that 't2' label is missing
+
+new t3: HSCHyperEdge(name="t3")
+new P3-:HSCsource->t3
+new P4-:HSCsource->t3
+
+new P5: HSCBasicState(name="P5")
+new t3-:HSCtarget->P5
+
+#context O4
+new P7: HSCBasicState(name="P7")
+new P6-:HSCtarget->P7
+new P8: HSCBasicState(name="P8")
+new P7-:HSCtarget->P8
+
+new t6: HSCHyperEdge(name="t6")
+new P5-:HSCsource->t6
+new P8-:HSCsource->t6
+
+new P9: HSCBasicState(name="P9")
+new t6-:HSCtarget->P9
+new P10: HSCBasicState(name="P10")
+new P9-:HSCtarget->P10 # 't7' tag missing
+
+#show graph ycomp
+
+## adding AND/OR tree...
+new O1: HSCorState(name="O1")
+new O1-:HSCcontains->P2
+new O1-:HSCcontains->P3
+
+new O2: HSCorState(name="O2")
+new O2-:HSCcontains->P4
+
+new A1: HSCandState(name="A1")
+new A1-:HSCcontains->O1
+new A1-:HSCcontains->O2
+
+new O3: HSCorState(name="O3")
+new O3-:HSCcontains->A1
+new O3-:HSCcontains->P5
+
+new O4: HSCorState(name="O4")
+new O4-:HSCcontains->P6
+new O4-:HSCcontains->P7
+new O4-:HSCcontains->P8
+
+new A2: HSCandState(name="A2")
+new A2-:HSCcontains->O3
+new A2-:HSCcontains->O4
+
+new O5: HSCorState(name="O5")
+new O5-:HSCcontains->A2
+new O5-:HSCcontains->P9
+new O5-:HSCcontains->P10
+
+new O6: HSCorState(name="O6")
+new O6-:HSCcontains->P11
+
+new A3: HSCandState(name="A3")
+new A3-:HSCcontains->O5
+new A3-:HSCcontains->O6
+
+new root: HSCorState(name="root")
+new root-:HSCcontains->P1
+new root-:HSCcontains->A3
+
+debug xgrs noRootIsAnd && [insertImplicitHyperEdgesSRC]&&[insertImplicitHyperEdgesTRG]
+
+#new con:HSCConfiguration;
+#debug xgrs BuildConfiguration(A2,con)
+
+#debug xgrs setPre* && setPost* && [trans_place]
+# (!) mind the difference with "trans_place[1:*]": without the cflow:
+#  [trans_place] executes just once for every match, and all in parallel
+#  trans_place executes just for one match, I guess it is like trans_place[1:1]
+#  see GrGen manual p.41: the [] operator is unsafe (but good enough for our purposes, since it saves a '!transformed' flag!

@@ -1,0 +1,45 @@
+// Automatically generated from "PetriNets.ecore"
+// Do not change, changes will be lost!
+
+node class pnet_Net;
+
+edge class pnet_Net_places {
+	index:int;
+}
+
+edge class pnet_Net_transitions {
+	index:int;
+}
+
+abstract node class pnet_NamedElement {
+	_name:string;
+}
+
+node class pnet_Place extends pnet_NamedElement;
+
+edge class pnet_Place_postt {
+	index:int;
+}
+
+edge class pnet_Place_pret {
+	index:int;
+}
+
+edge class pnet_Place_cnet {
+	index:int;
+}
+
+node class pnet_Transition extends pnet_NamedElement;
+
+edge class pnet_Transition_prep {
+	index:int;
+}
+
+edge class pnet_Transition_postp {
+	index:int;
+}
+
+edge class pnet_Transition_cnet {
+	index:int;
+}
+

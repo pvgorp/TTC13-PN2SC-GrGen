@@ -1,0 +1,83 @@
+new graph PNtoHSC "pn and hsc m1"
+
+dump set edge PN2HSC color Purple
+#include "HSChidden.layout"
+include "Petri.layout"
+include "HSC.layout"
+#include "PetriHidden.layout"
+
+echo "|---> Loading input model (PETRI NET)"
+# silence on
+include input.grs
+
+show num nodes only Place
+show num nodes only Transition
+
+#echo "|---> Resolving name conflicts in input" 
+#xgrs resolveNameConflict*
+
+echo "|---> Normalizing input (1/2)"
+xgrs addGlobalNetElementIfNoNetElementPresent
+
+echo "|---> Serializing input to PNML"
+redirect emit out.pnml
+xgrs visID1 = valloc() && pnModel2pnmlText && vfree(visID1)
+
+echo "|---> Normalizing input (2/2)"
+include "KarlsruheNet2EindhovenNet.grs" # set pre and post links
+
+#for showing input
+show graph ycomp
+
+#echo "|---> Preparing the translation of a large input model"
+#custom graph analyze
+#custom actions gen_searchplan trans_AND_join trans_AND_split transform_singleton_pre_post  handlePrePlace_AND_join handlePrePlace_AND_split 
+silence off
+echo "|---> Performing the actual PN2HSC translation..."
+xgrs [trans_place]&&[trans_transition] &&[trans_post]&&[trans_pre]&& [trans_token] |  (transform_singleton_pre_post$||trans_AND_split$||trans_AND_join)* 
+silence on
+echo "|---> Checking Metamodel Conformance"
+validate
+echo "|--> For debugging upon failure"
+include "HSC.layout"
+dump add edge PN2HSC exclude
+show graph ycomp
+
+echo "|---> Serializing the output model to UML SC XMI for the Eugenia based GMF editor (1/3)"
+redirect emit "uml/eugenia-sc-base.statechart" # is XMI2
+xgrs visID2 = valloc() && hscModel2eugeniaXMItext && vfree(visID2)
+
+echo "|---> Adding some UML HSC syntactical sugar"
+xgrs [makeEndStateExplicit] | makeMergeNodesExplicit* | makeDecisionNodesExplicit*  
+
+echo "|---> Serializing the output model to UML2 XMI"
+redirect emit "uml/out.uml"
+xgrs visID2 = valloc() && hscModel2eclipseUMLtext && vfree(visID2)
+
+echo "|---> Serializing the output model to UML SC XMI for the Eugenia based GMF editor (2/3)"
+redirect emit "uml/eugenia-sc-pngeneric1.statechart" # is XMI2
+xgrs visID2 = valloc() && hscModel2eugeniaXMItext && vfree(visID2)
+
+#echo removing fork/join elements (redirecting arcs)
+xgrs (replace_HEfork_arc $| replace_HEjoin_arc)*
+
+echo "|---> some more syntactical sugar related change that has been designed with yComp in mind, and not with the transformation to UML 2 XMI..."
+xgrs [removeTrivialHyperEdge] | [flattenSingletonORregion] 
+
+echo "|---> Serializing the output model to UML SC XMI for the Eugenia based GMF editor (3/3)"
+redirect emit "uml/eugenia-sc-pngeneric2.statechart" # is XMI2
+xgrs visID2 = valloc() && hscModel2eugeniaXMItext && vfree(visID2)
+
+xgrs cleanResultIfAllTransformed # almost empty if successful reduction
+
+#echo "Showing result in yComp"
+dump reset
+
+include "PetriHidden.layout"
+
+# dump end-graph to .grs
+export PNtoHSCdo-out.grs
+# alternative approach for showing/saving output as a diagram:
+#show graph ycomp
+#debug enable
+#dump graph out.vcg

@@ -1,0 +1,3 @@
+dump add node Token exclude
+dump add node Place exclude
+dump add node Transition exclude

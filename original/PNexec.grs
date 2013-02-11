@@ -1,0 +1,17 @@
+new graph PetriSimulator "pn"
+
+include "Petri.layout"
+echo "|---> Loading input model (PETRI NET)"
+silence on
+include input.grs
+
+show num nodes only Place
+show num nodes only Transition
+
+echo "|---> Normalizing input (1/2)"
+xgrs addGlobalNetElementIfNoNetElementPresent
+
+echo "|---> Normalizing input (2/2)"
+include "KarlsruheNet2EindhovenNet.grs" # set pre and post links
+
+debug xgrs $%[step][0:*]

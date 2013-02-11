@@ -1,0 +1,111 @@
+/*
+* This file is part of PN2SC.
+*  
+* PN2SC: Petri-Net to Statechart translator based on GrGen.NET rules
+* Copyright (C) 2010,2011,2012,2013 Pieter Van Gorp (pieter(at)pietervangorp.com)
+* 
+* PN2SC is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+* 
+* PN2SC is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with PN2SC; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+// @author Pieter Van Gorp
+// @title A transformation to eliminate fork/join hyperedges from hierarchical statecharts
+
+rule replace_HEfork_arc {
+	// inj. matching on or1 and or2 => he and s in different OR nodes!
+	or1:HSCorState -:HSCcontains-> he:HSCHyperEdge -:HSCtarget-> s:HSCState
+									<-:HSCcontains- or2:HSCorState <-:HSCcontains- a:HSCandState;	
+	/*negative {
+		// no two arcs pointing to states in different AND nodes
+		he -:HSCtarget-> s1:HSCState <-:HSCcontains- . <-:HSCcontains- a1:HSCandState;
+		he -:HSCtarget-> s2:HSCState <-:HSCcontains- . <-:HSCcontains- a2:HSCandState;
+	}*/
+	negative {
+		-:HSCsource-> he <-:HSCsource-;
+	}
+	modify {		
+		exec(connectT_IfNotYetSo(he,a) | [arcBecomesInitialState(he,a)]);			
+	}
+}
+
+rule connectT_IfNotYetSo(s1:HSCState,s2:HSCState) {
+	negative {
+		s1 -:HSCtarget-> s2;
+	}
+	modify {
+		s1 -:HSCtarget-> s2;
+	}
+} 
+
+rule connectS_IfNotYetSo(s1:HSCState,s2:HSCState) {
+	negative {
+		s1 -:HSCsource-> s2;
+	}
+	modify {
+		s1 -:HSCsource-> s2;
+	}
+}
+
+rule arcBecomesInitialState(he:HSCHyperEdge, a:HSCandState) {
+	he -arc:HSCtarget-> s_i:HSCState // arc to basic node, merge node, ...
+		<-:HSCcontains- . <-:HSCcontains- a; // apply the folding locally, otherwise it may occur multiple times
+	modify {
+		delete(arc);
+		exec(addInitialIfNotYetThere(s_i));
+	}
+}
+
+rule addInitialIfNotYetThere(s:HSCState) {
+	s <-:HSCcontains- or:HSCorState;
+	negative {
+		:HSCStartState -:HSCtarget-> s;
+	}
+	modify {
+		or -:HSCcontains-> :HSCStartState -:HSCtarget-> s;
+	} 
+}
+
+// @FIXME obvious copy/paste problem here, could I use dynamic label names to avoid that?
+rule replace_HEjoin_arc {
+	// inj. matching on or1 and or2 => he and s in different OR nodes!
+	or1:HSCorState -:HSCcontains-> he:HSCHyperEdge <-:HSCsource- s:HSCState
+									<-:HSCcontains- or2:HSCorState <-:HSCcontains- a:HSCandState;
+	negative {
+		<-:HSCtarget- he -:HSCtarget->;
+	}
+	modify {		
+		exec(connectS_IfNotYetSo(a,he) | [arcBecomesFinalState(he,a)]);			
+	}
+}
+
+// @FIXME obvious copy/paste problem here, could I use dynamic label names to avoid that?
+rule arcBecomesFinalState(he:HSCHyperEdge, a:HSCandState) {
+	he <-arc:HSCsource- s_i:HSCState // arc to basic node, merge node, ...
+		<-:HSCcontains- . <-:HSCcontains- a; // apply the folding locally, otherwise it may occur multiple times
+	modify {
+		delete(arc);
+		exec(addFinalIfNotYetThere(s_i));
+	}
+}
+
+// @FIXME obvious copy/paste problem here, could I use dynamic label names to avoid that?
+rule addFinalIfNotYetThere(s:HSCState) {
+	s <-:HSCcontains- or:HSCorState;
+	negative {
+		:HSCFinalState <-:HSCtarget- s;
+	}
+	modify {
+		or -:HSCcontains-> :HSCFinalState <-:HSCtarget- s;
+	} 
+}
